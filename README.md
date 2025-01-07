@@ -13,20 +13,20 @@ The biggest unit in the program is a `Module`, which contains global variables, 
 
 A `Function` contains a list of `Instruction`s and `BasicBlock`s.
 
-> [!NOTE]
-> Cranelift has no notion of aggregate types, just primitives. Need to compare the advantages and disadvantages
-> of this approach.
-
 ## Instruction Set
 
-
+TODO!
 
 ## Compiler Processes
 
 ### IR Construction
 
-#### Potential Passes
+TODO!
 
+### IR Optimisation Passes
+
+<details>
+<summary>Passes I've encountered researching</summary>
 This is just a list of common optimisation passes I have found. They are not implemented yet.
 
 - Inlining
@@ -43,10 +43,22 @@ This is just a list of common optimisation passes I have found. They are not imp
 - Loop unrolling
 - Scalar replacement
 - Vectorisation
+</details>
 
-
-### IR Optimisation Passes
+TODO!
 
 ### Register Allocation
 
+<details>
+<summary>Rough Notes</summary>
+
+Register allocation is just a graph-colouring problem. Need to handle spilling onto stack
+splitting ranges where a register is used. Most JIT compilers use a linear scan instead.
+
+</details>
+
+TODO!
+
 ### Instruction Selection
+
+TODO!
