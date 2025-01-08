@@ -2,63 +2,43 @@
 
 Bend is a compiler backend, intended for me to learn more about intermediate representations and compiler optimisations.
 
-## Resources
-
-- [Modern Compiler Implementation in ML](https://www.cs.princeton.edu/~appel/modern/)
-- [Simple and Efficient Construction of SSA](https://c9x.me/compile/bib/braun13cc.pdf)
-
 ## High-Level Overview
 
 The biggest unit in the program is a `Module`, which contains global variables, type definitions and `Function`s.
 
 A `Function` contains a list of `Instruction`s and `BasicBlock`s.
 
+## Data Types
+
+The IR will initially just work on `i64`s (2's complement signed integers), and aggregates of these. Further down the line, it would be worth adding support for other power of two integers
+and floating point values.
+
+I am a huge fan of the idea of opaque pointer types, so I may implement these because I think they are very cool.
+
 ## Instruction Set
 
-TODO!
+Binary Operations: `add`, `sub`, `mul`, `div`...; Some of these operations may produce multiple results. It would be worth looking at integrating tuples into the IR.
 
-## Compiler Processes
+Terminators: `ret`, `branch`...
 
-### IR Construction
+Memory: `load`, `store`, `alloca` ...; No GEP. I don't like the idea of GEP.
 
-TODO!
+## IR Construction
 
-### IR Optimisation Passes
+To construct our IR, we will use Braun's algorithm [Simple and Efficient Construction of SSA](https://c9x.me/compile/bib/braun13cc.pdf), allowing us to produce our IR straight from an
+AST. Construction should be done through an `IRBuilder` interface.
 
-<details>
-<summary>Passes I've encountered researching</summary>
-This is just a list of common optimisation passes I have found. They are not implemented yet.
+## IR Optimisation Passes
 
-- Inlining
-- Copy Propagation
-- Dead Code Elimination
-- Global common sub-expression elimination
-- Global value numbering
-- Loop invariant code motion
-- Sparse conditional constant propagation
-- Strength reduction
-- Tail recursion elimination
-- Expression reassocoation
-- Partial redundancy elimination
-- Loop unrolling
-- Scalar replacement
-- Vectorisation
-</details>
+Some key optimisation passes I should implement:
 
-TODO!
+- Dead Code Elimnation
+- Scalar Replacement of Aggregates
+- Loop Invariant Code Motion
+- Common Subexpression Elimination
+- Constant Propogation
 
-### Register Allocation
+## Register Allocation
 
-<details>
-<summary>Rough Notes</summary>
+## Instruction Selection
 
-Register allocation is just a graph-colouring problem. Need to handle spilling onto stack
-splitting ranges where a register is used. Most JIT compilers use a linear scan instead.
-
-</details>
-
-TODO!
-
-### Instruction Selection
-
-TODO!
